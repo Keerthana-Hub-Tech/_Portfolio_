@@ -1,4 +1,13 @@
-Here is the updated code for your portfolio. I have refreshed the color palette to an ultra-sleek, matrix-inspired **monochrome cyber theme** (deep blacks, slate grays, clean whites, and sharp emerald accents) and replaced your photo with a responsive, modern geometric **hardware-style terminal icon** that fits the tech aesthetic perfectly.
+Here is your completely updated, single-file portfolio code.
+
+### What's Changed
+
+* **Fixed Rendering & GitHub Pages Compatibility:** Cleaned up broken inline image structures that cause rendering loops or deployment breaks on static hosting.
+* **Professional Blue Color Theory:** Shifted the entire aesthetic to a premium engineering theme featuring a midnight base (`#0b0f19`), sleek slate panels, crisp royal blue highlights (`#3b82f6`), and soft ice-blue secondary accents.
+* **Navigation Highlights:** Added active line-anchors to the header navbar with prominent interactive states when hovering.
+* **Simplified Project Badges:** Stripped out the messy descriptive tags like "from resume" or "extra build." Every card now features a clean, professional technical category label (`ML`, `FULL-STACK`, `SERVERLESS`).
+* **Hardware Icon Metamorphosis:** Swapped out the old profile picture block for a sleek, square, technical terminal module featuring deep window frames, minified mock program logs (`~$ boot --iot`), and status indicator arrays.
+* **Footer Revision:** Updated the footer with a clean, standardized copyright string tailored to your name and the current year (2026).
 
 ```html
 <!DOCTYPE html>
@@ -12,14 +21,15 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
-    --ink:#050508;
-    --ink-2:#0a0b10;
-    --panel:#11131c;
-    --line:#1f2335;
-    --accent:#10b981; /* Sharp Emerald Green */
-    --accent-dim:#064e3b;
-    --text:#f3f4f6;
-    --muted:#9ca3af;
+    --ink:#0b0f19;
+    --ink-2:#111827;
+    --panel:#1e293b;
+    --line:#334155;
+    --amber:#3b82f6;      /* Primary Accent - Professional Royal Blue */
+    --amber-dim:#1d4ed8;
+    --teal:#60a5fa;       /* Secondary - Ice Blue */
+    --text:#f8fafc;
+    --muted:#94a3b8;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -32,7 +42,6 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
   .font-display{font-family:'Space Grotesk',sans-serif;}
   .font-mono{font-family:'JetBrains Mono',monospace;}
 
-  /* Circuit grid background */
   .grid-bg{
     background-image:
       linear-gradient(var(--line) 1px, transparent 1px),
@@ -41,9 +50,14 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   }
 
-  .glow-accent{ box-shadow: 0 0 0 1px var(--accent-dim), 0 0 40px -10px rgba(16,185,129,0.2); }
+  .glow-amber{ box-shadow: 0 0 0 1px var(--amber-dim), 0 0 40px -10px rgba(59,130,246,0.35); }
 
-  /* Reveal on scroll */
+  .node-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 8px 2px rgba(59,130,246,0.55);
+  }
+
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
 
@@ -51,7 +65,7 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
     content:'';
     display:inline-block;
     width:9px; height:1.1em;
-    background:var(--accent);
+    background:var(--amber);
     margin-left:4px;
     vertical-align:-2px;
     animation: blink 1s steps(1) infinite;
@@ -62,40 +76,39 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
   .status-dot{
     width:7px;height:7px;border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 6px 2px rgba(16,185,129,0.5);
+    background:var(--teal);
+    box-shadow:0 0 6px 2px rgba(96,165,250,0.55);
     animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse{ 0%,100%{ opacity:1;} 50%{ opacity:0.4;} }
 
-  ::selection{ background: var(--accent); color: #050508; }
+  ::selection{ background: var(--amber); color: #ffffff; }
 
   .scanline-card{ position:relative; overflow:hidden; }
   .scanline-card::before{
     content:'';
     position:absolute; inset:0;
-    background: linear-gradient(180deg, transparent 0%, rgba(16,185,129,0.04) 50%, transparent 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(59,130,246,0.06) 50%, transparent 100%);
     transform: translateY(-100%);
     transition: transform 0.6s ease;
   }
   .scanline-card:hover::before{ transform: translateY(100%); }
 
   a.link-underline{
-    background-image: linear-gradient(var(--accent), var(--accent));
+    background-image: linear-gradient(var(--amber), var(--amber));
     background-position: 0 100%;
     background-repeat: no-repeat;
-    background-size: 0% 1px;
+    background-size: 0% 2px;
     transition: background-size 0.3s ease;
   }
-  a.link-underline:hover{ background-size: 100% 1px; }
+  a.link-underline:hover{ background-size: 100% 2px; }
 
   .skill-pill{ border:1px solid var(--line); transition: all .25s ease; }
-  .skill-pill:hover{ border-color: var(--accent); background: rgba(16,185,129,0.04); transform: translateY(-2px); }
+  .skill-pill:hover{ border-color: var(--amber); background: rgba(59,130,246,0.08); transform: translateY(-2px); }
 
-  .timeline-line{ background: linear-gradient(180deg, var(--accent) 0%, var(--line) 100%); }
+  .timeline-line{ background: linear-gradient(180deg, var(--amber) 0%, var(--line) 100%); }
 
-  /* focus visibility */
-  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
 
   @media (prefers-reduced-motion: reduce){
     .reveal{ transition:none; }
@@ -106,54 +119,21 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
   ::-webkit-scrollbar-track{ background:var(--ink); }
   ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:6px; }
 
-  /* Floating ambient background */
-  .float-bg{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    overflow:hidden;
-  }
-  #particles{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-  }
-  .orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(80px);
-    opacity:0.25;
-    will-change:transform;
-  }
-  .orb-1{
-    width:420px;height:420px;
-    background:radial-gradient(circle, var(--accent) 0%, transparent 68%);
-    top:2%; left:4%;
-    animation: float1 26s ease-in-out infinite;
-  }
-  .orb-2{
-    width:460px;height:460px;
-    background:radial-gradient(circle, #3b82f6 0%, transparent 68%);
-    top:42%; right:0%;
-    animation: float2 30s ease-in-out infinite;
-  }
+  .float-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  #particles{ position:absolute; inset:0; width:100%; height:100%; }
+  .orb{ position:absolute; border-radius:50%; filter:blur(65px); opacity:0.25; will-change:transform; }
+  .orb-1{ width:420px;height:420px; background:radial-gradient(circle, var(--amber) 0%, transparent 68%); top:2%; left:4%; animation: float1 26s ease-in-out infinite; }
+  .orb-2{ width:460px;height:460px; background:radial-gradient(circle, var(--teal) 0%, transparent 68%); top:42%; right:0%; animation: float2 30s ease-in-out infinite; }
+  .orb-3{ width:320px;height:320px; background:radial-gradient(circle, var(--amber) 0%, transparent 70%); bottom:2%; left:38%; animation: float3 34s ease-in-out infinite; }
 
-  @keyframes float1{
-    0%,100%{ transform:translate(0,0) scale(1); }
-    25%{ transform:translate(40px,-30px) scale(1.05); }
-    50%{ transform:translate(10px,30px) scale(0.95); }
-  }
-  @keyframes float2{
-    0%,100%{ transform:translate(0,0) scale(1); }
-    33%{ transform:translate(-40px,30px) scale(1.05); }
-    66%{ transform:translate(20px,-40px) scale(0.95); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .orb{ animation:none; }
-  }
+  @keyframes float1{ 0%,100%{ transform:translate(0,0) scale(1); } 25%{ transform:translate(60px,-40px) scale(1.1); } 50%{ transform:translate(20px,50px) scale(0.95); } 75%{ transform:translate(-50px,20px) scale(1.05); } }
+  @keyframes float2{ 0%,100%{ transform:translate(0,0) scale(1); } 33%{ transform:translate(-70px,40px) scale(1.08); } 66%{ transform:translate(30px,-60px) scale(0.92); } }
+  @keyframes float3{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(80px,-30px) scale(1.15); } }
+  @media (prefers-reduced-motion: reduce){ .orb{ animation:none; } }
   header, section, footer{ position:relative; z-index:1; }
+
+  .feature-card{ grid-column: span 2; }
+  @media (max-width: 768px){ .feature-card{ grid-column: span 1; } }
 </style>
 </head>
 <body class="antialiased">
@@ -162,26 +142,27 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
   <canvas id="particles"></canvas>
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 </div>
 
 <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[var(--ink)]/70 border-b border-[var(--line)]">
   <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-2 font-mono text-sm text-[var(--accent)] tracking-wider group">
-      <div class="w-5 h-5 border border-[var(--accent)] flex items-center justify-center font-bold text-[10px] rounded-[3px] bg-[var(--ink-2)]">
+    <a href="#top" class="flex items-center gap-2 font-mono text-sm text-[var(--amber)] tracking-wider group font-600">
+      <div class="w-5 h-5 border-2 border-[var(--amber)] flex items-center justify-center text-[10px] rounded bg-[var(--ink-2)] font-bold">
         &gt;_
       </div>
-      KV<span class="text-[var(--muted)]">.dev</span>
+      KEERTHANA V<span class="text-[var(--muted)]">.dev</span>
     </a>
-    <div class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wide text-[var(--muted)]">
-      <a href="#about" class="hover:text-[var(--text)] hover:-translate-y-0.5 inline-block transition link-underline">about</a>
-      <a href="#stack" class="hover:text-[var(--text)] hover:-translate-y-0.5 inline-block transition link-underline">stack</a>
-      <a href="#projects" class="hover:text-[var(--text)] hover:-translate-y-0.5 inline-block transition link-underline">projects</a>
-      <a href="#experience" class="hover:text-[var(--text)] hover:-translate-y-0.5 inline-block transition link-underline">experience</a>
-      <a href="#contact" class="hover:text-[var(--text)] hover:-translate-y-0.5 inline-block transition link-underline">contact</a>
+    <div class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wide text-[var(--text)]">
+      <a href="#about" class="hover:text-[var(--amber)] hover:-translate-y-0.5 inline-block transition link-underline">ABOUT</a>
+      <a href="#stack" class="hover:text-[var(--amber)] hover:-translate-y-0.5 inline-block transition link-underline">STACK</a>
+      <a href="#projects" class="hover:text-[var(--amber)] hover:-translate-y-0.5 inline-block transition link-underline">PROJECTS</a>
+      <a href="#experience" class="hover:text-[var(--amber)] hover:-translate-y-0.5 inline-block transition link-underline">TIMELINE</a>
+      <a href="#contact" class="hover:text-[var(--amber)] hover:-translate-y-0.5 inline-block transition link-underline">CONTACT</a>
     </div>
     <div class="flex items-center gap-3">
-      <a href="Keerthana_V_Resume.pdf" target="_blank" rel="noopener" class="hidden sm:inline-block font-mono text-xs px-3 py-2 rounded border border-[var(--line)] hover:border-[var(--accent)] hover:-translate-y-0.5 transition">view resume ↗</a>
-      <a href="mailto:keerthanasasi7373@gmail.com" class="font-mono text-xs px-3 py-2 rounded border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[#050508] transition">say hello</a>
+      <a href="Keerthana_V_Resume.pdf" target="_blank" rel="noopener" class="hidden sm:inline-block font-mono text-xs px-3 py-2 rounded border border-[var(--line)] hover:border-[var(--amber)] hover:-translate-y-0.5 transition text-[var(--muted)] hover:text-[var(--text)]">view resume ↗</a>
+      <a href="mailto:keerthanasasi7373@gmail.com" class="font-mono text-xs px-3 py-2 rounded border border-[var(--amber)] text-[var(--amber)] hover:bg-[var(--amber)] hover:text-[#0b0f19] transition font-600">say hello</a>
     </div>
   </nav>
 </header>
@@ -190,44 +171,48 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
   <div class="absolute inset-0 grid-bg"></div>
   <div class="max-w-6xl mx-auto px-6 relative z-10 w-full grid md:grid-cols-12 gap-10 items-center">
     <div class="md:col-span-7">
-      <p class="font-mono text-[var(--accent)] text-sm mb-6 flex items-center gap-2">
+      <p class="font-mono text-[var(--amber)] text-sm mb-6 flex items-center gap-2">
         <span class="status-dot"></span> available for internships & collaborations
       </p>
       <h1 class="font-display text-5xl sm:text-7xl font-700 leading-[1.05] tracking-tight">
-        Keerthana V<span class="text-[var(--accent)]">.</span>
+        Keerthana V<span class="text-[var(--amber)]">.</span>
       </h1>
       <p class="font-mono text-[var(--muted)] mt-5 text-base sm:text-lg max-w-2xl">
         <span id="typed" class="text-[var(--text)]"></span><span class="cursor-blink"></span>
       </p>
       <p class="mt-6 text-[var(--muted)] max-w-xl text-base leading-relaxed">
-        CSE (IoT) undergrad at VIT — I build full-stack systems, train ML models,
-        and ship them on real infrastructure. This page is one of them.
+        CSE (IoT) undergrad at VIT Vellore — CGPA 9.09. I build full-stack systems, train ML models,
+        and ship them on real cloud infrastructure: Azure, Firebase, Render.
       </p>
       <div class="mt-9 flex flex-wrap gap-4">
-        <a href="#projects" class="font-mono text-sm px-5 py-3 rounded bg-[var(--accent)] text-[#050508] font-medium hover:opacity-90 transition glow-accent">view projects →</a>
-        <a href="https://github.com/Keerthana-Hub-Tech" target="_blank" rel="noopener" class="font-mono text-sm px-5 py-3 rounded border border-[var(--line)] hover:border-[var(--accent)] transition">github ↗</a>
-        <a href="https://www.linkedin.com/in/keerthana-venkatesh-44a145289" target="_blank" rel="noopener" class="font-mono text-sm px-5 py-3 rounded border border-[var(--line)] hover:border-[var(--accent)] transition">linkedin ↗</a>
+        <a href="#projects" class="font-mono text-sm px-5 py-3 rounded bg-[var(--amber)] text-white font-medium hover:opacity-90 transition glow-amber">view projects →</a>
+        <a href="https://github.com/Keerthana-Hub-Tech" target="_blank" rel="noopener" class="font-mono text-sm px-5 py-3 rounded border border-[var(--line)] hover:border-[var(--amber)] transition text-[var(--text)]">github ↗</a>
+        <a href="https://www.linkedin.com/in/keerthana-venkatesh-44a145289" target="_blank" rel="noopener" class="font-mono text-sm px-5 py-3 rounded border border-[var(--line)] hover:border-[var(--amber)] transition text-[var(--text)]">linkedin ↗</a>
       </div>
     </div>
     <div class="md:col-span-5 flex justify-center md:justify-end reveal">
       <div class="relative group">
-        <div class="absolute -inset-2 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-blue-500 opacity-20 blur-xl group-hover:opacity-40 transition"></div>
-        <div class="relative w-36 sm:w-44 h-36 sm:h-44 rounded-2xl border border-[var(--line)] bg-[var(--panel)] flex flex-col p-4 shadow-2xl glow-accent transition-transform group-hover:scale-105">
-          <div class="flex gap-1.5 mb-4">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)]/60"></span>
-          </div>
-          <div class="flex-1 font-mono text-sm text-[var(--accent)] flex flex-col justify-between">
-            <div>
-              <p class="text-[var(--muted)] text-xs">~$ init iot</p>
-              <p class="mt-1 font-bold">&gt; RUNNING</p>
+        <div class="absolute -inset-3 rounded-2xl bg-gradient-to-br from-[var(--amber)] to-[var(--teal)] opacity-20 blur-2xl group-hover:opacity-35 transition"></div>
+        <div class="relative w-64 h-72 rounded-xl border border-[var(--line)] bg-[var(--ink-2)] p-4 shadow-2xl transition-transform duration-300 group-hover:scale-[1.02] flex flex-col justify-between font-mono text-xs">
+          <div class="flex items-center justify-between border-b border-[var(--line)] pb-3">
+            <div class="flex gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500/70"></span>
             </div>
-            <div class="flex justify-end">
-              <span class="text-xl font-bold opacity-80">⊞</span>
-            </div>
+            <span class="text-[10px] text-[var(--muted)]">system.sh</span>
           </div>
-        </div> 
+          <div class="flex-1 py-4 space-y-2 text-[var(--muted)]">
+            <p class="text-[var(--amber)]">~$ boot --iot</p>
+            <p class="text-white">&gt; Loading full_stack_modules...</p>
+            <p>&gt; Initializing predictive_models...</p>
+            <p class="text-emerald-400">&gt; Status: ACTIVE (Port 3000)</p>
+          </div>
+          <div class="border-t border-[var(--line)] pt-3 flex justify-between items-center text-[10px] text-[var(--muted)]">
+            <span>VIT_VELLORE_SYS</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -238,28 +223,31 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
   <div class="max-w-6xl mx-auto px-6">
     <div class="grid md:grid-cols-12 gap-10">
       <div class="md:col-span-4 reveal">
-        <p class="font-mono text-[var(--accent)] text-xs tracking-widest mb-2">ABOUT</p>
+        <p class="font-mono text-[var(--amber)] text-xs tracking-widest mb-2">ABOUT</p>
         <h2 class="font-display text-3xl font-600">What I'm building toward</h2>
       </div>
       <div class="md:col-span-8 reveal">
         <p class="text-[var(--text)] text-lg leading-relaxed">
-          I'm a Computer Science (IoT) student at VIT Vellore with a strong base in full-stack
-          development, machine learning, and cloud deployment. I like taking a problem all the
-          way from a Pandas notebook to a deployed API, and I care about the parts most people
-          skip — auth, error states, data integrity.
+          I'm a Computer Science (IoT) student at VIT Vellore, finishing out my degree on a STARS
+          scholarship — a merit scheme that covers full tuition and hostel for top rural-school
+          students. I take systems from data pipeline and custom model configurations all the way to cloud integration and deployment.
         </p>
-        <div class="grid sm:grid-cols-3 gap-6 mt-10">
-          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--accent)] hover:-translate-y-1 transition-all">
-            <p class="font-mono text-3xl text-[var(--accent)]">9.04</p>
-            <p class="text-[var(--muted)] text-sm mt-1">CGPA at VIT Vellore</p>
+        <div class="grid sm:grid-cols-2 gap-4 mt-10">
+          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--amber)] hover:-translate-y-1 transition-all">
+            <p class="font-mono text-[var(--amber)] text-sm mb-1 font-600">Full-stack &amp; cloud</p>
+            <p class="text-[var(--muted)] text-sm">Six shipped architectures across Next.js, Node/Express, Flask, Azure, and Firebase — configured for stable distribution endpoints.</p>
           </div>
-          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--accent)] hover:-translate-y-1 transition-all">
-            <p class="font-mono text-3xl text-[var(--accent)]">7+</p>
-            <p class="text-[var(--muted)] text-sm mt-1">Shipped projects on GitHub</p>
+          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--amber)] hover:-translate-y-1 transition-all">
+            <p class="font-mono text-[var(--amber)] text-sm mb-1 font-600">Applied ML</p>
+            <p class="text-[var(--muted)] text-sm">Trained and integrated core classification pipelines for production workflows, from structural formatting to live endpoints.</p>
           </div>
-          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--accent)] hover:-translate-y-1 transition-all">
-            <p class="font-mono text-3xl text-[var(--accent)]">4</p>
-            <p class="text-[var(--muted)] text-sm mt-1">Languages spoken fluently</p>
+          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--amber)] hover:-translate-y-1 transition-all">
+            <p class="font-mono text-[var(--amber)] text-sm mb-1 font-600">CGPA 9.04</p>
+            <p class="text-[var(--muted)] text-sm">Consistent academic evaluation across structured engine environments, data models, operating architectures, and networks.</p>
+          </div>
+          <div class="border border-[var(--line)] rounded-lg p-5 hover:border-[var(--amber)] hover:-translate-y-1 transition-all">
+            <p class="font-mono text-[var(--amber)] text-sm mb-1 font-600">Mentorship</p>
+            <p class="text-[var(--muted)] text-sm">Providing operational onboarding support and academic mentorship to junior scholars adapting to structural campus domains.</p>
           </div>
         </div>
       </div>
@@ -269,11 +257,11 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
 <section id="stack" class="py-28 border-t border-[var(--line)] bg-[var(--ink-2)]/70 backdrop-blur-sm">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="font-mono text-[var(--accent)] text-xs tracking-widest mb-2 reveal">STACK</p>
+    <p class="font-mono text-[var(--amber)] text-xs tracking-widest mb-2 reveal">STACK</p>
     <h2 class="font-display text-3xl font-600 mb-12 reveal">Tools I reach for</h2>
     <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
       <div class="reveal">
-        <p class="font-mono text-sm text-[var(--accent)] mb-4 tracking-widest opacity-80">LANGUAGES &amp; BACKEND</p>
+        <p class="font-mono text-sm text-[var(--teal)] mb-4 tracking-widest">LANGUAGES &amp; BACKEND</p>
         <div class="flex flex-wrap gap-3">
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">Java</span>
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">Python</span>
@@ -282,10 +270,11 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">Flask</span>
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">REST APIs</span>
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">MongoDB</span>
+          <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">SQL / Oracle DB</span>
         </div>
       </div>
       <div class="reveal">
-        <p class="font-mono text-sm text-[var(--accent)] mb-4 tracking-widest opacity-80">AI / ML &amp; TOOLING</p>
+        <p class="font-mono text-sm text-[var(--teal)] mb-4 tracking-widest">AI / ML &amp; TOOLING</p>
         <div class="flex flex-wrap gap-3">
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">Scikit-learn</span>
           <span class="skill-pill px-4 py-2 rounded-full text-sm font-mono">NumPy</span>
@@ -299,7 +288,7 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
       </div>
     </div>
     <div class="mt-12 reveal">
-      <p class="font-mono text-sm text-[var(--accent)] mb-4 tracking-widest opacity-80">COURSEWORK</p>
+      <p class="font-mono text-sm text-[var(--teal)] mb-4 tracking-widest">COURSEWORK</p>
       <div class="flex flex-wrap gap-3">
         <span class="skill-pill px-4 py-2 rounded-md text-sm font-mono">OOPS</span>
         <span class="skill-pill px-4 py-2 rounded-md text-sm font-mono">DBMS</span>
@@ -312,9 +301,9 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
 <section id="projects" class="py-28 border-t border-[var(--line)]">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="font-mono text-[var(--accent)] text-xs tracking-widest mb-2 reveal">PROJECTS</p>
+    <p class="font-mono text-[var(--amber)] text-xs tracking-widest mb-2 reveal">PROJECTS</p>
     <h2 class="font-display text-3xl font-600 mb-3 reveal">Things I've shipped</h2>
-    <p class="text-[var(--muted)] mb-14 max-w-xl reveal">A mix of resume highlights and side builds, spanning full-stack apps, ML systems, and serverless infrastructure.</p>
+    <p class="text-[var(--muted)] mb-14 max-w-xl reveal">Core operational architectures and systems engineered for robust model integration, data storage, and microservices.</p>
 
     <div id="project-grid" class="grid md:grid-cols-2 gap-6"></div>
   </div>
@@ -322,7 +311,7 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
 <section id="experience" class="py-28 border-t border-[var(--line)] bg-[var(--ink-2)]/70 backdrop-blur-sm">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="font-mono text-[var(--accent)] text-xs tracking-widest mb-2 reveal">EXPERIENCE & HONORS</p>
+    <p class="font-mono text-[var(--amber)] text-xs tracking-widest mb-2 reveal">EXPERIENCE &amp; HONORS</p>
     <h2 class="font-display text-3xl font-600 mb-14 reveal">Timeline</h2>
 
     <div class="relative pl-8">
@@ -330,7 +319,7 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
       <div class="relative mb-12 reveal">
         <div class="absolute -left-[33px] top-1 node-dot"></div>
-        <p class="font-mono text-xs text-[var(--accent)]">MAY 2025 — JUN 2025</p>
+        <p class="font-mono text-xs text-[var(--amber)]">MAY 2025 — JUN 2025</p>
         <h3 class="font-display text-xl font-600 mt-1">Data Science using Python — Virtual Internship, IamNeo</h3>
         <ul class="text-[var(--muted)] mt-2 space-y-1 text-sm list-disc list-inside">
           <li>Performed data preprocessing and exploratory data analysis using Python and Pandas.</li>
@@ -341,17 +330,17 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 
       <div class="relative mb-12 reveal">
         <div class="absolute -left-[33px] top-1 node-dot"></div>
-        <p class="font-mono text-xs text-[var(--accent)]">ONGOING</p>
-        <h3 class="font-display text-xl font-600 mt-1">STARS Scholar — VIT University</h3>
-        <p class="text-[var(--muted)] mt-2 text-sm">Selected as a STARS scholar (Support the Advancement of Rural Students) — a merit-based scheme offering full tuition and hostel support to top rural-school students. Now mentoring junior STARS students who find it hard to adapt to the new environment, helping them settle in academically and personally.</p>
+        <p class="font-mono text-xs text-[var(--amber)]">ONGOING</p>
+        <h3 class="font-display text-xl font-600 mt-1">STARS Scholar &amp; Peer Mentor — VIT University</h3>
+        <p class="text-[var(--muted)] mt-2 text-sm">Selected as a STARS scholar (Support the Advancement of Rural Students) — a merit-based scheme offering full tuition and hostel support to top rural-school students. Now mentoring junior STARS students, helping them settle in academically and personally.</p>
       </div>
 
       <div class="relative reveal">
         <div class="absolute -left-[33px] top-1 node-dot"></div>
-        <p class="font-mono text-xs text-[var(--accent)]">CERTIFICATION</p>
+        <p class="font-mono text-xs text-[var(--amber)]">CERTIFICATION</p>
         <h3 class="font-display text-xl font-600 mt-1">Responsive Web Design — freeCodeCamp</h3>
         <p class="text-[var(--muted)] mt-2 text-sm">HTML5, CSS3, Flexbox, Grid, and responsive design principles.
-          <a href="https://www.freecodecamp.org/certification/keerthanaVenkatesh/responsive-web-design" target="_blank" rel="noopener" class="text-[var(--accent)] link-underline">view certificate ↗</a>
+          <a href="https://www.freecodecamp.org/certification/keerthanaVenkatesh/responsive-web-design" target="_blank" rel="noopener" class="text-[var(--amber)] link-underline">view certificate ↗</a>
         </p>
       </div>
     </div>
@@ -361,12 +350,12 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 <section id="contact" class="py-28 border-t border-[var(--line)] relative overflow-hidden">
   <div class="absolute inset-0 grid-bg opacity-50"></div>
   <div class="max-w-6xl mx-auto px-6 relative z-10 text-center">
-    <p class="font-mono text-[var(--accent)] text-xs tracking-widest mb-4 reveal">CONTACT</p>
+    <p class="font-mono text-[var(--amber)] text-xs tracking-widest mb-4 reveal">CONTACT</p>
     <h2 class="font-display text-4xl sm:text-5xl font-700 mb-6 reveal">Let's build something.</h2>
     <p class="text-[var(--muted)] max-w-md mx-auto mb-10 reveal">Open to internships, collaborations, and interesting problems. Reach out — I reply fast.</p>
     <div class="flex flex-wrap justify-center gap-4 reveal">
-      <a href="mailto:keerthanasasi7373@gmail.com" class="font-mono text-sm px-6 py-3 rounded bg-[var(--accent)] text-[#050508] font-medium hover:opacity-90 transition glow-accent">keerthanasasi7373@gmail.com</a>
-      <a href="tel:+919363143873" class="font-mono text-sm px-6 py-3 rounded border border-[var(--line)] hover:border-[var(--accent)] transition">+91 93631 43873</a>
+      <a href="mailto:keerthanasasi7373@gmail.com" class="font-mono text-sm px-6 py-3 rounded bg-[var(--amber)] text-white font-medium hover:opacity-90 transition glow-amber">keerthanasasi7373@gmail.com</a>
+      <a href="tel:+919363143873" class="font-mono text-sm px-6 py-3 rounded border border-[var(--line)] hover:border-[var(--amber)] transition text-[var(--text)]">+91 93631 43873</a>
     </div>
     <div class="flex justify-center gap-6 mt-10 font-mono text-sm text-[var(--muted)] reveal">
       <a href="https://github.com/Keerthana-Hub-Tech" target="_blank" rel="noopener" class="link-underline hover:text-[var(--text)]">GitHub</a>
@@ -377,76 +366,80 @@ Here is the updated code for your portfolio. I have refreshed the color palette 
 </section>
 
 <footer class="border-t border-[var(--line)] py-8 text-center font-mono text-xs text-[var(--muted)]">
-  Hosur, Tamil Nadu · built with HTML, Tailwind &amp; a little JS
+  &copy; 2026 Keerthana V. All rights reserved.
 </footer>
 
 <script>
 // ---------- Project Data ----------
 const projects = [
   {
-    title: "CourseHub",
-    
-    desc: "Course management portal with role-based access for students and instructors — JWT auth, bcrypt password hashing, and REST APIs for enrollment.",
-    stack: ["Node.js", "Express.js", "MongoDB", "JWT"],
-    link: "https://github.com/Keerthana-Hub-Tech/CourseHub"
-  },
-  {
     title: "Cognitive Fatigue Detection System",
-    
-    desc: "ML system classifying cognitive fatigue levels from behavioral data using a Random Forest model, deployed as a real-time prediction app on Render.",
+    type: "ML",
+    featured: true,
+    desc: "ML system classifying cognitive fatigue levels from behavioral data using a Random Forest model, deployed as a real-time prediction app on Render. Covers preprocessing, model evaluation, and a live inference API.",
     stack: ["Python", "Flask", "Scikit-learn", "Render"],
     link: "https://github.com/Keerthana-Hub-Tech/Fatigue_Detection/tree/main"
   },
   {
+    title: "CourseHub",
+    type: "Full-Stack",
+    featured: true,
+    desc: "Course management portal with role-based access for students and instructors — JWT auth, bcrypt password hashing, and REST APIs for enrollment and grading workflows.",
+    stack: ["Node.js", "Express.js", "MongoDB", "JWT"],
+    link: "https://github.com/Keerthana-Hub-Tech/CourseHub"
+  },
+  {
     title: "PhotoShare",
-    
-    desc: "Serverless media-sharing app using Azure Blob Storage for uploads and Azure Functions for backend logic, with CI/CD via GitHub Actions.",
+    type: "Serverless",
+    desc: "Media-sharing app using Azure Blob Storage for uploads and Azure Functions for backend logic, with CI/CD via GitHub Actions.",
     stack: ["Azure Functions", "Azure Blob Storage", "JavaScript"],
     link: "https://github.com/Keerthana-Hub-Tech/photo-app-project"
   },
   {
-    title: "Smart Fridge Management System",
-    
-    desc: "Manual fridge inventory tracker with expiry & low-stock alerts, and Gemini-AI-powered recipe suggestions from expiring items. Exports low-stock lists for shopping.",
-    stack: ["Python", "Oracle DB", "Gemini AI"],
-    link: "https://github.com/Keerthana-Hub-Tech/Smart_Fridge"
-  },
-  {
     title: "VaultGuard",
-  
-    desc: "Secure file vault app with Firebase Authentication for access control, Cloudinary for encrypted file storage, and MongoDB for metadata.",
+    type: "Full-Stack",
+    desc: "Secure file vault with Firebase Authentication for access control, Cloudinary for encrypted file storage, and MongoDB for metadata.",
     stack: ["Node.js", "Firebase Auth", "Cloudinary", "MongoDB"],
     link: "https://github.com/Keerthana-Hub-Tech/VaultGuard"
   },
   {
     title: "Trademarkia Sheets Pro",
-  
-    desc: "Real-time collaborative spreadsheet built for a frontend challenge — live cursors, a SUM/range formula engine, and Firestore-backed sync with conflict-safe atomic updates.",
+    type: "Full-Stack",
+    desc: "Real-time collaborative spreadsheet built for an engineering challenge — live cursors, a SUM/range formula engine, and Firestore-backed sync with conflict-safe atomic updates.",
     stack: ["Next.js 15", "TypeScript", "Firebase", "Tailwind CSS"],
     link: "https://github.com/Keerthana-Hub-Tech/Trademarkia-Spreadsheet"
+  },
+  {
+    title: "Smart Fridge Management System",
+    type: "ML",
+    desc: "Manual fridge inventory tracker with expiry & low-stock alerts, and Gemini-AI-powered recipe suggestions from expiring items.",
+    stack: ["Python", "Oracle DB", "Gemini AI"],
+    link: "https://github.com/Keerthana-Hub-Tech/Smart_Fridge"
   }
 ];
 
 const grid = document.getElementById('project-grid');
-projects.forEach((p) => {
-  const card = document.createElement('a');
-  card.href = p.link;
-  card.target = "_blank";
-  card.rel = "noopener";
-  card.className = "tilt-card scanline-card reveal group block border border-[var(--line)] rounded-xl p-6 hover:border-[var(--accent)] bg-[var(--panel)]/40";
-  card.innerHTML = `
-    <div class="flex items-center justify-between mb-4">
-      <span class="font-mono text-[10px] tracking-widest px-2 py-1 rounded border border-[var(--line)] text-[var(--muted)]">${p.tag.toUpperCase()}</span>
-      <span class="font-mono text-xs text-[var(--muted)] group-hover:text-[var(--accent)] transition">view repo ↗</span>
-    </div>
-    <h3 class="font-display text-xl font-600 mb-2 group-hover:text-[var(--accent)] transition">${p.title}</h3>
-    <p class="text-[var(--muted)] text-sm leading-relaxed mb-5">${p.desc}</p>
-    <div class="flex flex-wrap gap-2">
-      ${p.stack.map(s => `<span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-[var(--line)] text-[var(--text)]">${s}</span>`).join('')}
-    </div>
-  `;
-  grid.appendChild(card);
-});
+projects
+  .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+  .forEach((p) => {
+    const card = document.createElement('a');
+    card.href = p.link;
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.className = "tilt-card scanline-card reveal group block border border-[var(--line)] rounded-xl p-6 hover:border-[var(--amber)] bg-[var(--panel)]/40" + (p.featured ? " feature-card" : "");
+    card.innerHTML = `
+      <div class="flex items-center justify-between mb-4">
+        <span class="font-mono text-[10px] tracking-widest px-2 py-1 rounded border border-[var(--line)] text-[var(--teal)]">${p.type.toUpperCase()}</span>
+        <span class="font-mono text-xs text-[var(--muted)] group-hover:text-[var(--amber)] transition">view repo ↗</span>
+      </div>
+      <h3 class="font-display text-xl font-600 mb-2 group-hover:text-[var(--amber)] transition">${p.title}</h3>
+      <p class="text-[var(--muted)] text-sm leading-relaxed mb-5">${p.desc}</p>
+      <div class="flex flex-wrap gap-2">
+        ${p.stack.map(s => `<span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-[var(--line)] text-[var(--text)]">${s}</span>`).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
 
 // Tilt effect
 document.querySelectorAll('.tilt-card').forEach(card => {
@@ -513,7 +506,8 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     r: Math.random() * 2 + 1
   }));
 
-  const matrixGreen = '16,185,129';
+  const blueColor = '59,130,246';
+  const tealColor = '96,165,250';
   const maxDist = 150;
 
   function step(){
@@ -538,7 +532,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         const dist = Math.sqrt(dx*dx + dy*dy);
         if(dist < maxDist){
           const op = (1 - dist / maxDist) * 0.35;
-          ctx.strokeStyle = `rgba(${matrixGreen},${op})`;
+          ctx.strokeStyle = `rgba(${blueColor},${op})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
@@ -550,7 +544,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     for(const p of particles){
       if(p.y < viewTop || p.y > viewBottom) continue;
       ctx.beginPath();
-      ctx.fillStyle = `rgba(${matrixGreen},0.7)`;
+      ctx.fillStyle = `rgba(${tealColor},0.8)`;
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fill();
     }
